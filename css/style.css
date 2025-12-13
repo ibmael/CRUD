@@ -1,0 +1,63 @@
+/* GLOBAL STYLES */
+:root {
+  --bg-primary-color: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(178, 0, 184, 1) 0%,
+    rgba(71, 0, 159, 1) 90%
+  );
+}
+.text-purple {
+  color: #7f22fe;
+}
+
+/* start with the navbar */
+.navbar {
+  background-color: #fdfdfe !important;
+}
+.nav-title p{
+    font-size: 12px;
+}
+.icon-box {
+  width: 42px;
+  height: 42px;
+  background: var(--bg-primary-color);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 20px;
+}
+
+.nav-form .nav-btn {
+  padding: 7px 15px;
+  background: var(--bg-primary-color);
+  color: #fff;
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease-in-out;
+}
+.nav-form .nav-btn:hover{
+    transform: translate(0, -5px);
+ box-shadow: 0px 2px 6px rgba(151, 56, 214, 0.88);
+}
+.navbar .nav-link i {
+  font-size: 16px;
+
+ width: 32px;
+ height: 32px; 
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 10px;
+}
+.navbar .nav-link i:hover{
+   background-color: #f3f4f6;
+   color: #364153;
+}
+.navbar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 25%;
+  object-fit: cover;
+}
