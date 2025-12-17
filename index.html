@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact Hub - Smart Contact Manager</title>
   <!-- favicon -->
-  <link rel="icon" href="https://cdn-icons-png.flaticon.com/128/17621/17621469.png" type="image/svg+xml" />
+  <link rel="icon" href="https://img.icons8.com/?size=160&id=letUS1DJO1ou&format=png" type="image/svg+xml" />
   <!-- fontawesome link -->
   <link rel="stylesheet" href="./css/all.min.css" />
   <!-- bootstrap link -->
@@ -17,7 +17,7 @@
 
 <body>
   <!-- start with navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand bg-body-tertiary">
     <div class="container">
       <i class="fa-solid fa-address-book icon-box"></i>
 
@@ -31,11 +31,94 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto">
           <li class="nav-info nav-item ms-3 ">
-            <form class="nav-form d-flex" role="search">
-              <button class="nav-btn btn fw-semibold" type="submit">
+            <form class="nav-form d-flex">
+              <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                class="nav-btn btn fw-semibold">
                 + Add Contact
               </button>
             </form>
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" tabindex="-1">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add New Contact</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="contact-form-container">
+                      <form class="contact-form">
+                        <div class="user-upload text-center">
+                          <div class="user-icon mb-2">
+                            <i class="fa-solid fa-user "></i>
+                          </div>
+
+                          <input type="file" class="form-control w-50 mx-auto">
+                        </div>
+
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold">Full Name <span
+                              class="text-danger fs-6">*</span></label>
+                          <input type="text" class="form-control" placeholder="Enter full name">
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold">Phone Number <span
+                              class="text-danger fs-6">*</span></label>
+                          <input type="tel" class="form-control" placeholder="e.g., 01012345678">
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold">Email Address</label>
+                          <input type="email" class="form-control" placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold">Address</label>
+                          <input type="text" class="form-control" placeholder="Enter address">
+                        </div>
+                        <div class="mb-3">
+                          <label for="group" class="form-label fw-semibold">
+                            Group
+                          </label>
+                          <select id="group" class="form-select">
+                            <option value="" selected disabled>Select a group</option>
+                            <option value="family">Family</option>
+                            <option value="friends">Friends</option>
+                            <option value="work">Work</option>
+                            <option value="school">School</option>
+                            <option value="other">Other</option>
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label class="form-label fw-semibold">Notes</label>
+                          <textarea class="form-control no-resize" rows="3"
+                            placeholder="Add notes about this contact"></textarea>
+                        </div>
+                        <div class="d-flex gap-4 mt-2">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="fav">
+                            <i class="fa-solid fa-star text-warning"></i>
+                            <label class="form-check-label" for="fav">
+                              Favorite
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="block">
+                            <i class="fa-solid fa-heart-pulse text-danger"></i>
+                            <label class="form-check-label" for="block">
+                              Emergency
+                            </label>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="modal-footer d-flex justify-content-center align-items-center ">
+                    <button type="button" class="btn btn1 text-dark" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn2 bg-purple fw-normal text-white"><i class="fa-solid fa-check"></i> Save
+                      Contact</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </li>
           <li class=" nav-item ms-3">
             <a class="nav-link" href="#"><i class="fa-solid fa-bell"></i></a>
@@ -44,14 +127,20 @@
             <a class="nav-link" href="#"><i class="fa-solid fa-gear"></i></i></a>
           </li>
           <li class=" ms-3">
-            <img src="assets/avatar-4.jpg" class="img-fluid" alt="">
+            <img src="assets/avatar-4.jpg" class="nav-avatar" alt="">
           </li>
         </ul>
       </div>
     </div>
   </nav>
-
   <!-- end with navbar -->
+
+  <!-- start with body section -->
+  <section class=" body-section">
+    <div class="container"></div>
+  </section>
+
+  <!-- end with body section -->
 
   <!-- bootstrap js link -->
   <script src="./js/bootstrap.bundle.min.js"></script>
