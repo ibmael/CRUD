@@ -31,9 +31,9 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto">
           <li class="nav-info nav-item ms-3 ">
-            <form class="nav-form d-flex">
+            <form class="nav-form d-flex" onsubmit="event.preventDefault()">
               <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                class="nav-btn btn fw-semibold">
+                class="nav-btn btn fw-semibold" onclick="resetToAddMode()">
                 + Add Contact
               </button>
             </form>
@@ -46,39 +46,43 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
-                    <div class="contact-form-container">
+                    <div class="contact-form-container" >
                       <form class="contact-form">
                         <div class="user-upload text-center">
                           <div class="user-icon mb-2">
                             <i class="fa-solid fa-user "></i>
                           </div>
 
-                          <input type="file" class="form-control w-50 mx-auto">
+                          <label for="avatar" class="form-label fw-semibold d-block text-center">
+                            Profile Image
+                          </label>
+
+                          <input id="avatar" type="file" class="form-control w-50 mx-auto" accept="image/*" />
                         </div>
 
                         <div class="mb-3">
                           <label class="form-label fw-semibold">Full Name <span
                               class="text-danger fs-6">*</span></label>
-                          <input type="text" class="form-control" placeholder="Enter full name">
+                          <input id="contactName" type="text" class="form-control" placeholder="Enter full name">
                         </div>
                         <div class="mb-3">
                           <label class="form-label fw-semibold">Phone Number <span
                               class="text-danger fs-6">*</span></label>
-                          <input type="tel" class="form-control" placeholder="e.g., 01012345678">
+                          <input id="contactPhone" type="tel" class="form-control" placeholder="e.g., 01012345678">
                         </div>
                         <div class="mb-3">
                           <label class="form-label fw-semibold">Email Address</label>
-                          <input type="email" class="form-control" placeholder="name@example.com">
+                          <input id="contactEmail" type="email" class="form-control" placeholder="name@example.com">
                         </div>
                         <div class="mb-3">
                           <label class="form-label fw-semibold">Address</label>
-                          <input type="text" class="form-control" placeholder="Enter address">
+                          <input id="contactAddress" type="text" class="form-control" placeholder="Enter address">
                         </div>
                         <div class="mb-3">
-                          <label for="group" class="form-label fw-semibold">
+                          <label for="contactGroup" class="form-label fw-semibold">
                             Group
                           </label>
-                          <select id="group" class="form-select">
+                          <select id="contactGroup" class="form-select">
                             <option value="" selected disabled>Select a group</option>
                             <option value="family">Family</option>
                             <option value="friends">Friends</option>
@@ -89,7 +93,7 @@
                         </div>
                         <div class="mb-3">
                           <label class="form-label fw-semibold">Notes</label>
-                          <textarea class="form-control no-resize" rows="3"
+                          <textarea id="contactNotes" class="form-control no-resize" rows="3"
                             placeholder="Add notes about this contact"></textarea>
                         </div>
                         <div class="d-flex gap-4 mt-2">
@@ -101,9 +105,9 @@
                             </label>
                           </div>
                           <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="block">
+                            <input class="form-check-input" type="checkbox" id="emergency">
                             <i class="fa-solid fa-heart-pulse text-danger"></i>
-                            <label class="form-check-label" for="block">
+                            <label class="form-check-label" for="emergency">
                               Emergency
                             </label>
                           </div>
@@ -113,8 +117,13 @@
                   </div>
                   <div class="modal-footer d-flex justify-content-center align-items-center ">
                     <button type="button" class="btn btn1 text-dark" data-bs-dismiss="modal">Cancel</button>
-                    <button class="btn btn2 bg-purple fw-normal text-white"><i class="fa-solid fa-check"></i> Save
+                    <button class="btn btn2 bg-purple fw-normal text-white" id="addBtn" onclick="addContact()">
+                      <i class="fa-solid fa-check"></i> Save
                       Contact</button>
+                    <button id="updateBtn" class="btn btn-warning fw-normal text-white d-none"
+                      onclick="updateContact()">
+                      Update Contact
+                    </button>
                   </div>
                 </div>
               </div>
@@ -136,9 +145,106 @@
   <!-- end with navbar -->
 
   <!-- start with body section -->
-  <section class=" body-section">
-    <div class="container"></div>
+  <section class="body-section py-4">
+    <div class="container">
+      <div class="row g-4">
+
+        <div class="col-lg-12">
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <div class="stat-card d-flex align-items-center">
+                <i class="fa-solid fa-people-group me-3 bg-primary text-white stat-icon icon-blue"></i>
+                <div class="card-content">
+                  <h6>Total</h6>
+                  <h3 id="totalCount">0</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stat-card d-flex align-items-center">
+                <i class="fa-solid fa-star me-3 bg-primary text-white stat-icon icon-yellow"></i>
+                <div class="card-content">
+                  <h6>Favorites</h6>
+                  <h3 id="favCount">0</h3>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stat-card d-flex align-items-center">
+                <i class="fa-solid fa-heart-pulse me-3 bg-primary text-white stat-icon icon-red"></i>
+                <div class="card-content">
+                  <h6>Emergency</h6>
+                  <h3 id="emergencyCount">0</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-8 col-md-12">
+                <h3 class="fw-bold">All Contacts</h3>
+                <p class="text-muted">Manage and organize your contacts</p>
+
+                <div class="position-relative mb-4">
+                  <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                  <input type="search" class="form-control ps-5 py-2 rounded-3" id="searchInput" onkeyup="searchContact()"
+                    placeholder="Search by name, phone, or email..." />
+                </div>
+
+                <div class="row g-3" id="contactsDisplay"></div>
+
+
+
+                <!-- Empty state -->
+                <div class="empty-state text-center py-5" id="emptyState">
+                  <i class="fa-solid fa-address-book fs-4 mb-3"></i>
+                  <p class="fw-semibold">No contacts found</p>
+                  <small class="fw-bold">Click “Add Contact” to get started</small>
+                </div>
+              </div>
+
+
+              <!-- RIGHT SIDE -->
+              <div class="col-lg-4 col-md-12">
+                <div class="side-card mb-4">
+                  <div class="top-side-card d-flex align-items-start gap-3 side-one rounded-3 p-3">
+                    <i class="fa-solid fa-star side-icon icon-yellow"></i>
+                    <div>
+                      <h6 class="fw-bold mb-1">Favorites</h6>
+                      <small class="text-muted">Quick access to starred contacts</small>
+                    </div>
+                  </div>
+                  <div id="favoritesList" class="p-3"></div>
+                  <div class="empty-small text-center" id="favEmpty">
+                    No favorites yet
+                  </div>
+
+                </div>
+                <div class="side-card mb-4">
+                  <div class="top-side-card d-flex align-items-start gap-3 side-two p-3">
+                    <i class="fa-solid fa-heart-pulse side-icon icon-red"></i>
+                    <div>
+                      <h6 class="fw-bold mb-1">Emergency</h6>
+                      <small class="text-muted">Important contacts for urgent calls</small>
+                    </div>
+                  </div>
+
+                  <div id="emergencyList" class="p-3"></div>
+                  <div class="empty-small text-center" id="emergencyEmpty">
+                    No emergency contacts
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
   </section>
+
 
   <!-- end with body section -->
 
