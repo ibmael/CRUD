@@ -73,6 +73,16 @@ function addContact() {
   clearForm();
   // display the contacts
   displayContacts();
+  // hide the modal
+  contactModal.hide();
+
+   Swal.fire({
+    icon: "success",
+    title: "Contact Added",
+    text: "The contact has been added successfully",
+    timer: 1500,
+    showConfirmButton: false,
+  });
 }
 
 // clear values function || reset the form
@@ -161,10 +171,34 @@ function displayContacts(list = contactList) {
 
 // delete contact function
 function deleteContact(index) {
-  contactList.splice(index, 1);
-  localStorage.setItem("Contacts Storage", JSON.stringify(contactList));
-  displayContacts();
+  Swal.fire({
+    title: "Are you sure?",
+    text: "This contact will be deleted",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#6c757d",
+    confirmButtonText: "Yes, delete",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      contactList.splice(index, 1);
+      localStorage.setItem(
+        "Contacts Storage",
+        JSON.stringify(contactList)
+      );
+      displayContacts();
+
+      Swal.fire({
+        icon: "success",
+        title: "Deleted",
+        text: "Contact deleted successfully",
+        timer: 1200,
+        showConfirmButton: false,
+      });
+    }
+  });
 }
+
 
 // edit contact function
 function editContact(index) {
@@ -185,7 +219,7 @@ function editContact(index) {
 }
 
 function updateContact() {
-   var name = contactNameInput.value.trim();
+  var name = contactNameInput.value.trim();
   var phone = contactPhoneInput.value.trim();
 
   contactNameInput.style.border = "";
@@ -239,7 +273,9 @@ function searchContact() {
   var term = searchInput.value.trim().toLowerCase();
 
   for (var i = 0; i < contactList.length; i++) {
-    if (contactList[i].contactName.toLowerCase().includes(term)) {
+    if (contactList[i].contactName.toLowerCase().includes(term)
+    // || contactList[i].contactPhone.
+    ) {
       searchArr.push(contactList[i]);
     }
   }
